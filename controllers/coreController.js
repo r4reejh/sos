@@ -24,7 +24,12 @@ hit_areas.on("value",(snapshot)=> {
 	let hitAreas = snapshot.val();
 	if(hitAreas){
 		let v=Object.keys(hitAreas).map((key)=>{
-			return raw.hits.push(hitAreas[key]);
+			let x={
+				"name":key,
+				"lat":hitAreas[key].lat,
+				"long":hitAreas[key].long
+			}
+			return raw.hits.push(x);
 		});
 	}
 });
@@ -34,7 +39,12 @@ relief.on("value",(snapshot)=>{
 	console.log(data)
 	if(data){
 		let v = Object.keys(data).map((key)=>{
-			return raw.relief.push(data[key]);
+			let x={
+				"name":key,
+				"lat":data[key].lat,
+				"long":data[key].long
+			}
+			return raw.relief.push(x);
 		});
 	}
 });
@@ -75,6 +85,7 @@ let getNearestHits=(lat,long)=>{
 				dis.push("hits "+d);
 				if(d<10 || d<20 || d<30){
 					let c={
+						"name":value.name,
 						"lat":value.lat,
 						"long":value.long
 					}
@@ -109,6 +120,7 @@ let getNearestRelief=(lat,long)=>{
 				dis.push("relief "+d);
 				if(d<10 || d<20 || d<30){
 					let c={
+						"name":value.name,
 						"lat":value.lat,
 						"long":value.long
 					}
